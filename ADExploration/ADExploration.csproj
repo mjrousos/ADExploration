@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net46</TargetFrameworks>
+    <RuntimeIdentifiers>win7-x86;win7-x64</RuntimeIdentifiers>
+    <RuntimeIdentifier Condition=" '$(TargetFramework)' == 'net46' ">win7-x86</RuntimeIdentifier>
+    <DebugType>portable</DebugType>
+    <AssemblyName>ADExploration</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
+    <Reference Include="System.DirectoryServices" />
+  </ItemGroup>
+</Project>

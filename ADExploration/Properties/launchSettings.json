@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ADExploration": {
+      "commandName": "Executable",
+      "executablePath": "..\\ADExploration\\bin\\Debug\\net46\\ADExploration.exe"
+    }
+  }
+}
