@@ -58,6 +58,9 @@
   <ItemGroup>
     <Compile Include="AuthenticationTypes.cs" />
     <Compile Include="DirectoryEntry.cs" />
+    <Compile Include="DirectorySearcher.cs" />
+    <Compile Include="SearchResult.cs" />
+    <Compile Include="SearchResultCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

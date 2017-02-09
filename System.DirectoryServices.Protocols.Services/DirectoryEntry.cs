@@ -8,22 +8,17 @@ namespace System.DirectoryServices.Protocols.Services
     public class DirectoryEntry : IDisposable
     {
         #region private fields
-
         private string _path = "";
         private NetworkCredential _credentials;
         private AuthenticationTypes _authenticationType = AuthenticationTypes.Secure;
         private bool _userNameIsNull = false;
         private bool _passwordIsNull = false;
         private bool _disposed = false;
-
         private LdapConnection _ldapConnection;
-
         #endregion
 
 
-
         #region Constructors
-
         public DirectoryEntry()
         {
 
@@ -47,12 +42,18 @@ namespace System.DirectoryServices.Protocols.Services
 
             _authenticationType = authenticationType;
         }
-
         #endregion
 
 
-
         #region Public Properties
+        internal LdapConnection Connection
+        {
+            get
+            {
+                Bind();
+                return _ldapConnection;
+            }
+        }
 
         public string Name
         {
@@ -133,7 +134,6 @@ namespace System.DirectoryServices.Protocols.Services
                 Unbind();
             }
         }
-
         #endregion
 
 
@@ -185,6 +185,10 @@ namespace System.DirectoryServices.Protocols.Services
             return _credentials.Password;
         }
 
+        internal NetworkCredential GetCredentials()
+        {
+            return _credentials;
+        }
 
 
         protected void Dispose(bool disposing)

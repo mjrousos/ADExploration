@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Linq;
+#if LEGACY_SDS
 using System.DirectoryServices;
+#else
+using System.DirectoryServices.Protocols.Services;
+#endif
 using System.Collections.Generic;
 
 class Program
@@ -31,6 +35,8 @@ class Program
         var userLdapPath = results?[0].Properties["distinguishedName"][0];
         var user = new DirectoryEntry($"GC://{userLdapPath}"); 
         Log($"Found LDAP path {userLdapPath}", ConsoleColor.Cyan);
+
+#if LEGACY_SDS
         Log($"User information:", ConsoleColor.Cyan);
 
         int maxPropesToList = 10;
@@ -57,10 +63,13 @@ class Program
         Log("Searching for user's management chain");
         var managementChain = GetManagementChain(user);
         Log($"  {string.Join(" -> ", managementChain.Select(de => de.Properties["mailNickname"].Value.ToString()))}", ConsoleColor.Cyan);
+#endif
+
         Log();
         Log("- Done -");
     }
 
+#if LEGACY_SDS
     private static IEnumerable<DirectoryEntry> GetManagementChain(DirectoryEntry user)
     {
         string managerPath = null;
@@ -73,6 +82,7 @@ class Program
 
         return Enumerable.Concat(new DirectoryEntry[] { user }, GetManagementChain(new DirectoryEntry($"GC://{managerPath}")));
     }
+#endif
 
     static void Log(string message = "", ConsoleColor? color = null)
     {

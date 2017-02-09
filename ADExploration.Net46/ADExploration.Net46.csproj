@@ -51,5 +51,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\System.DirectoryServices.Protocols.Services\System.DirectoryServices.Protocols.Services.csproj">
+      <Project>{680132fe-116a-4141-9d78-3d73a337762f}</Project>
+      <Name>System.DirectoryServices.Protocols.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
