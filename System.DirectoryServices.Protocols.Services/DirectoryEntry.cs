@@ -15,6 +15,7 @@ namespace System.DirectoryServices.Protocols.Services
         private bool _passwordIsNull = false;
         private bool _disposed = false;
         private LdapConnection _ldapConnection;
+        private PropertyCollection _propertyCollection;
         #endregion
 
 
@@ -64,8 +65,8 @@ namespace System.DirectoryServices.Protocols.Services
                 return RelativeDistinguishedName;
             }
         }
-
-        // TODO : Should probably cache these
+        
+        // TODO : Should probably cache these rather than splitting the path each time
         public string DistinguishedName => Path?.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
         public string RelativeDistinguishedName => DistinguishedName?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
 
@@ -101,6 +102,19 @@ namespace System.DirectoryServices.Protocols.Services
 
                 _path = value;
                 Unbind();
+            }
+        }
+
+        public PropertyCollection Properties
+        {
+            get
+            {
+                if (_propertyCollection == null)
+                {
+                    _propertyCollection = new PropertyCollection(this);
+                }
+
+                return _propertyCollection;
             }
         }
 
